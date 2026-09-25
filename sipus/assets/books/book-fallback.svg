@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 320" fill="none">
+  <rect width="240" height="320" rx="14" fill="#0B5CAD"/>
+  <rect width="240" height="320" rx="14" fill="url(#g)" opacity=".55"/>
+  <rect x="0" y="0" width="14" height="320" fill="#06457F"/>
+
+  <g opacity=".9">
+    <path d="M76 108h88c5 0 9 4 9 9v98c0 5-4 9-9 9H76c-5 0-9-4-9-9V117c0-5 4-9 9-9z" fill="#FFFFFF" opacity=".14"/>
+    <path d="M120 112v112" stroke="#FFFFFF" stroke-width="2" opacity=".35"/>
+    <path d="M85 128h26M85 140h26M129 128h26M129 140h26" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+  </g>
+
+  <circle cx="120" cy="70" r="26" fill="#F4C62E" opacity=".9"/>
+  <path d="M108 70l8 8 16-16" stroke="#06457F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <text x="120" y="250" text-anchor="middle" font-family="'Inter','Segoe UI',sans-serif" font-size="17" font-weight="700" fill="#FFFFFF" opacity=".9">SIPUS</text>
+  <text x="120" y="270" text-anchor="middle" font-family="'Inter','Segoe UI',sans-serif" font-size="10.5" fill="#FFFFFF" opacity=".65">Sampul belum tersedia</text>
+
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="240" y2="320" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1C7AD3"/>
+      <stop offset="1" stop-color="#06457F"/>
+    </linearGradient>
+  </defs>
+</svg>

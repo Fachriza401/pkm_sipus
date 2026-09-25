@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="id" class="auth-page">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIPUS — Daftar Akun</title>
+  <link rel="icon" href="assets/sipus-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/ui-refresh.css">
+</head>
+<body class="auth-page">
+  <div class="auth-shell">
+
+    <!-- ======== PANEL BRANDING (kiri) ======== -->
+    <aside class="auth-brand">
+      <div class="auth-brand-inner">
+        <div class="auth-brand-top">
+          <div class="auth-brand-glass">
+            <img class="auth-brand-mark" src="assets/sipus-logo-wy.png" alt="Logo SIPUS">
+            <div class="auth-brand-names">
+              <div class="auth-brand-name">SIPUS</div>
+              <div class="auth-brand-sub">Sistem Perpustakaan</div>
+              <div class="auth-brand-school">SMA Swasta Pencawan</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="auth-brand-copy">
+          <span class="auth-kicker">Gabung &amp; Jelajahi</span>
+          <h1>Mulai Perjalanan Membacamu Bersama SIPUS</h1>
+          <p>Daftarkan akunmu sebagai siswa atau guru. Temukan koleksi buku, ajukan peminjaman, dan usulkan buku kesukaanmu.</p>
+
+          <div class="auth-quote">
+            <span class="auth-quote__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
+            <span class="auth-quote__body">
+              <p>"Buku adalah jendela dunia. Mulailah dari halaman pertama — hari ini juga."</p>
+              <small>Semangat Membaca SIPUS</small>
+            </span>
+          </div>
+
+          <ul class="auth-features">
+            <li>
+              <span class="af-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5Z"/><path d="M3 8v8c0 2.6 4 4.5 9 4.5s9-1.9 9-4.5V8"/></svg></span>
+              <span><b>Akun Siswa Langsung Aktif</b><small>Jelajah koleksi tanpa menunggu</small></span>
+            </li>
+            <li>
+              <span class="af-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7.5" width="18" height="12" rx="2.5"/><path d="M9 7.5V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5M3.5 13h17M12 13v4"/></svg></span>
+              <span><b>Akun Guru Terverifikasi</b><small>Disetujui admin setelah daftar</small></span>
+            </li>
+            <li>
+              <span class="af-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7h8M8 7a4 4 0 1 0-2.8 4.8L7 12.3V19a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6.7l1.8-.5A4 4 0 0 0 16 7"/></svg></span>
+              <span><b>Data Rekam Jejak</b><small>Riwayat pinjam &amp; usulan tercatat</small></span>
+            </li>
+            <li>
+              <span class="af-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6l7-3Z"/><path d="M9.5 12.5l2 2 3.5-3.5"/></svg></span>
+              <span><b>Privasi Terjaga</b><small>Login aman sesuai peran</small></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Ilustrasi perpustakaan (abstrak, tanpa manusia) -->
+      <div class="auth-art" aria-hidden="true">
+        <svg viewBox="0 0 560 470" fill="none">
+          <circle cx="86" cy="404" r="130" stroke="#fff" stroke-opacity=".1" stroke-width="2"/>
+          <circle cx="480" cy="82" r="64" stroke="#F4C62E" stroke-opacity=".3" stroke-width="3"/>
+          <circle cx="500" cy="150" r="12" fill="#F4C62E" fill-opacity=".55"/>
+          <circle cx="420" cy="46" r="8" fill="#fff" fill-opacity=".5"/>
+          <path d="M44 64c26-18 54-18 80 0M54 82c22-14 44-14 66 0" stroke="#fff" stroke-opacity=".35" stroke-width="2" stroke-linecap="round"/>
+
+          <rect x="38" y="358" width="392" height="12" rx="6" fill="#fff" fill-opacity=".16" stroke="#fff" stroke-opacity=".45" stroke-width="2"/>
+          <rect x="46" y="352" width="10" height="26" rx="4" fill="#fff" fill-opacity=".4"/>
+
+          <g stroke="#fff" stroke-opacity=".55" stroke-width="2">
+            <rect x="52" y="190" width="40" height="168" rx="6" fill="#fff" fill-opacity=".12"/>
+            <rect x="98" y="150" width="32" height="208" rx="6" fill="#fff" fill-opacity=".2"/>
+            <rect x="136" y="205" width="46" height="153" rx="6" fill="#fff" fill-opacity=".1"/>
+            <rect x="188" y="165" width="36" height="193" rx="6" fill="#fff" fill-opacity=".22"/>
+            <rect x="230" y="185" width="42" height="173" rx="6" fill="#fff" fill-opacity=".12"/>
+            <rect x="278" y="140" width="32" height="218" rx="6" fill="#fff" fill-opacity=".24"/>
+          </g>
+          <rect x="150" y="205" width="6" height="153" rx="3" fill="#F4C62E" fill-opacity=".65"/>
+          <rect x="244" y="185" width="6" height="173" rx="3" fill="#F4C62E" fill-opacity=".5"/>
+          <line x1="70" y1="225" x2="78" y2="225" stroke="#F4C62E" stroke-width="4" stroke-linecap="round"/>
+          <path d="M324 150v158" stroke="#fff" stroke-opacity=".25" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>
+
+          <g stroke="#fff" stroke-opacity=".8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M392 268c-8-22-24-30-44-29v42c19-2 34 4 44 25 10-21 25-27 44-25v-42c-20-1-36 7-44 29z" fill="#fff" fill-opacity=".1"/>
+            <line x1="392" y1="238" x2="392" y2="306" stroke="#F4C62E" stroke-width="2.5"/>
+            <path d="M352 258h-2M352 270h-2M432 258h2M432 270h2" stroke="#fff" stroke-opacity=".55"/>
+          </g>
+
+          <circle cx="356" cy="356" r="5" fill="#F4C62E" fill-opacity=".6"/>
+          <circle cx="96" cy="96" r="6" fill="#fff" fill-opacity=".4"/>
+        </svg>
+      </div>
+
+      <div class="auth-brand-foot">SMA Swasta Pencawan • SIPUS v2.0.0</div>
+    </aside>
+
+    <!-- ======== PANEL FORM (kanan) ======== -->
+    <main class="auth-main">
+      <section class="auth-card" style="max-width: 520px;">
+        <div class="auth-mobile-brand">
+          <img src="assets/sipus-logo-wy.png" alt="Logo SIPUS">
+          <div class="auth-mobile-brand-text">
+            <div class="auth-mobile-brand-name">SIPUS</div>
+            <div class="auth-mobile-brand-sub">Sistem Perpustakaan</div>
+            <div class="auth-mobile-brand-school">SMA Swasta Pencawan</div>
+          </div>
+        </div>
+
+        <div class="a-phases">
+          <!-- ===== FASE 1: FORM ===== -->
+          <div class="a-phase active" id="phaseForm">
+
+            <div class="auth-card-head">
+              <h2>Daftar Akun Baru</h2>
+              <p>Pilih peran, lalu lengkapi data dirimu.</p>
+            </div>
+
+            <div class="a-switch" id="modeSwitch" role="tablist">
+              <button type="button" class="active" data-mode="siswa" role="tab" aria-selected="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9 12 4l10 5-10 5L2 9Z"/><path d="M6 11.5V15c0 1.8 2.7 3 6 3s6-1.2 6-3v-3.5"/><path d="M22 9v5"/></svg>
+                <span class="a-switch-label">
+                  <b>Siswa</b>
+                  <small>Langsung aktif</small>
+                </span>
+              </button>
+              <button type="button" data-mode="guru" role="tab" aria-selected="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7.5" width="18" height="12" rx="2.5"/><path d="M9 7.5V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5M3.5 13h17"/></svg>
+                <span class="a-switch-label">
+                  <b>Guru</b>
+                  <small>Disetujui admin</small>
+                </span>
+              </button>
+            </div>
+
+            <div id="alertBox"></div>
+
+            <!-- ============ FORM SISWA ============ -->
+            <form id="registerFormSiswa" class="a-reg-form" novalidate>
+              <div class="a-field" id="fNamaS">
+                <label for="nameS">Nama Lengkap <span class="req">*</span></label>
+                <div class="a-input">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-3.5 3.6-5 8-5s8 1.5 8 5"/></svg>
+                  <input type="text" id="nameS" placeholder="Nama sesuai data sekolah" autocomplete="name">
+                </div>
+                <span class="a-feedback" id="fbNameS"></span>
+              </div>
+
+              <div class="a-grid2">
+                <div class="a-field" id="fNisS">
+                  <label for="nisS">NIS <span class="req">*</span></label>
+                  <div class="a-input">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
+                    <input type="text" id="nisS" inputmode="numeric" maxlength="15" placeholder="Contoh: 2025107" autocomplete="off">
+                  </div>
+                  <span class="a-feedback" id="fbNisS"></span>
+                </div>
+
+                <div class="a-field" id="fKelasS">
+                  <label for="kelasS">Kelas <span class="req">*</span></label>
+                  <div class="a-input">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V4H6.5A2.5 2.5 0 0 0 4 6.5v13z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>
+                    <select id="kelasS">
+                      <option value="">Pilih kelas</option>
+                    </select>
+                  </div>
+                  <span class="a-feedback" id="fbKelasS"></span>
+                </div>
+              </div>
+
+              <div class="a-field" id="fUserS">
+                <label for="userS">Username <span class="req">*</span></label>
+                <div class="a-input">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-3.5 3.6-5 8-5s8 1.5 8 5"/></svg>
+                  <input type="text" id="userS" placeholder="Minimal 4 karakter (huruf/angka)" autocomplete="off">
+                </div>
+                <span class="a-feedback" id="fbUserS"></span>
+              </div>
+
+              <div class="a-grid2">
+                <div class="a-field" id="fHpS">
+                  <label for="hpS">No. HP</label>
+                  <div class="a-input">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>
+                    <input type="tel" id="hpS" inputmode="tel" maxlength="14" placeholder="08xxxxxxxxxx" autocomplete="tel">
+                  </div>
+                  <span class="a-feedback" id="fbHpS"></span>
+                </div>
+
+                <div class="a-field" id="fEmailS">
+                  <label for="emailS">Email</label>
+                  <div class="a-input">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+                    <input type="email" id="emailS" placeholder="nama@email.com" autocomplete="email">
+                  </div>
+                  <span class="a-feedback" id="fbEmailS"></span>
+                </div>
+              </div>
+
+              <div class="a-field" id="fPwS">
+                <label for="pwS">Password <span class="req">*</span></label>
+                <div class="a-input">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>
+                  <input type="password" id="pwS" placeholder="Minimal 6 karakter" autocomplete="new-password">
+                  <button type="button" class="a-pass-toggle" id="togglePwS" title="Tampilkan password">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+                <div class="pw-meter" id="pwMeterS">
+                  <span class="pw-meter__bars"><i></i><i></i><i></i></span>
+                  <span class="pw-meter__label" id="pwLabelS">Minimal 6 karakter</span>
+                </div>
+                <span class="a-feedback" id="fbPwS"></span>
+              </div>
+
+              <div class="a-field" id="fCfS">
+                <label for="cfS">Konfirmasi Password <span class="req">*</span></label>
+                <div class="a-input">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>
+                  <input type="password" id="cfS" placeholder="Ulangi password" autocomplete="new-password">
+                  <button type="button" class="a-pass-toggle" id="toggleCfS" title="Tampilkan password">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+                <span class="a-feedback" id="fbCfS"></span>
+              </div>
+
+              <div class="a-field">
+                <label class="a-check a-check--terms">
+                  <input type="checkbox" id="agreeS">
+                  <span>Saya memastikan data pendaftaran sudah benar dan digunakan untuk keperluan perpustakaan sekolah.</span>
+                </label>
+                <span class="a-feedback" id="fbAgreeS"></span>
+              </div>
+
+              <button type="submit" class="a-btn" id="btnRegisterSiswa">
+                Daftar sebagai Siswa
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </form>
+
+            <!-- ============ FORM GURU ============ -->
+            <form id="registerFormGuru" class="a-reg-form" novalidate hidden>
+              <div class="a-field" id="fNamaG">
+                <label for="nameG">Nama Lengkap <span class="req">*</span></label>
+                <div class="a-input">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-3.5 3.6-5 8-5s8 1.5 8 5"/></svg>
+                  <input type="text" id="nameG" placeholder="Nama sesuai data sekolah" autocomplete="name">
+                </div>
+                <span class="a-feedback" id="fbNameG"></span>
+              </div>
+
+              <div class="a-grid2">
+                <div class="a-field" id="fNipG">
+                  <label for="nipG">NIP <span class="req">*</span></label>
+                  <div class="a-input">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="9" cy="9.5" r="2"/><path d="M4.5 19c.8-2.4 2.5-3.5 4.5-3.5s3.7 1.1 4.5 3.5M15.5 9h4M15.5 12.5h4M15.5 16h4"/></svg>
+                    <input type="text" id="nipG" inputmode="numeric" maxlength="20" placeholder="Nomor Induk Pegawai" autocomplete="off">
+                  </div>
+                  <span class="a-feedback" id="fbNipG"></span>
+                </div>
+
+                <div class="a-field" id="fMapelG">
+                  <label for="mapelG">Mata Pelajaran <span class="req">*</span></label>
+                  <div class="a-input">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5Z"/><path d="M3 8v8c0 2.6 4 4.5 9 4.5s9-1.9 9-4.5V8"/></svg>
+                    <select id="mapelG">
+                      <option value="">Pilih mata pelajaran</option>
+                    </select>
+                  </div>
+                  <span class="a-feedback" id="fbMapelG"></span>
+                </div>
+              </div>
+
+              <div class="a-field" id="fUserG">
+                <label for="userG">Username <span class="req">*</span></label>
+                <div class="a-input">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-3.5 3.6-5 8-5s8 1.5 8 5"/></svg>
+                  <input type="text" id="userG" placeholder="Minimal 4 karakter (huruf/angka)" autocomplete="off">
+                </div>
+                <span class="a-feedback" id="fbUserG"></span>
+              </div>
+
+              <div class="a-grid2">
+                <div class="a-field" id="fHpG">
+                  <label for="hpG">No. HP</label>
+                  <div class="a-input">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>
+                    <input type="tel" id="hpG" inputmode="tel" maxlength="14" placeholder="08xxxxxxxxxx" autocomplete="tel">
+                  </div>
+                  <span class="a-feedback" id="fbHpG"></span>
+                </div>
+
+                <div class="a-field" id="fEmailG">
+                  <label for="emailG">Email</label>
+                  <div class="a-input">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+                    <input type="email" id="emailG" placeholder="nama@email.com" autocomplete="email">
+                  </div>
+                  <span class="a-feedback" id="fbEmailG"></span>
+                </div>
+              </div>
+
+              <div class="a-field" id="fPwG">
+                <label for="pwG">Password <span class="req">*</span></label>
+                <div class="a-input">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>
+                  <input type="password" id="pwG" placeholder="Minimal 6 karakter" autocomplete="new-password">
+                  <button type="button" class="a-pass-toggle" id="togglePwG" title="Tampilkan password">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+                <div class="pw-meter" id="pwMeterG">
+                  <span class="pw-meter__bars"><i></i><i></i><i></i></span>
+                  <span class="pw-meter__label" id="pwLabelG">Minimal 6 karakter</span>
+                </div>
+                <span class="a-feedback" id="fbPwG"></span>
+              </div>
+
+              <div class="a-field" id="fCfG">
+                <label for="cfG">Konfirmasi Password <span class="req">*</span></label>
+                <div class="a-input">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>
+                  <input type="password" id="cfG" placeholder="Ulangi password" autocomplete="new-password">
+                  <button type="button" class="a-pass-toggle" id="toggleCfG" title="Tampilkan password">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+                <span class="a-feedback" id="fbCfG"></span>
+              </div>
+
+              <div class="a-field">
+                <label class="a-check a-check--terms">
+                  <input type="checkbox" id="agreeG">
+                  <span>Saya memastikan data pendaftaran sudah benar dan digunakan untuk keperluan perpustakaan sekolah.</span>
+                </label>
+                <span class="a-feedback" id="fbAgreeG"></span>
+              </div>
+
+              <button type="submit" class="a-btn" id="btnRegisterGuru">
+                Daftar sebagai Guru
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </form>
+
+            <p class="auth-cta">Sudah punya akun? <a href="login.html">Masuk sekarang</a></p>
+          </div>
+
+          <!-- ===== FASE 2: SUKSES ===== -->
+          <div class="a-phase" id="phaseDone">
+            <div id="successBox"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/register.js"></script>
+</body>
+</html>

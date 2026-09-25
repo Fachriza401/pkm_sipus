@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="id" class="auth-page">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIPUS — Reset Kata Sandi</title>
+  <link rel="icon" href="assets/sipus-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/ui-refresh.css">
+</head>
+<body class="auth-page auth-recovery">
+  <div class="auth-centered">
+    <span class="af-orb af-orb--1" aria-hidden="true"></span>
+    <span class="af-orb af-orb--2" aria-hidden="true"></span>
+    <span class="af-orb af-orb--3" aria-hidden="true"></span>
+
+    <section class="auth-card">
+      <div class="auth-card-head">
+        <div class="af-medallion" aria-hidden="true">
+          <i class="af-medallion__ring"></i>
+          <i class="af-medallion__ring af-medallion__ring--2"></i>
+          <span class="af-medallion__ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.6-2.9 8.3-7 10-4.1-1.7-7-5.4-7-10V6l7-3Z"/><path d="M12 8v4M12 16h.01"/></svg>
+          </span>
+          <span class="af-medallion__spark">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1 6 4.5 9 10 10-5.5 1-9 4.5-10 10-1-5.5-4.5-9-10-10 5.5-1 9-4 10-10Z"/></svg>
+          </span>
+        </div>
+        <h2>Reset Kata Sandi</h2>
+        <p>Verifikasi data dirimu, lalu buat kata sandi baru secara mandiri.</p>
+      </div>
+
+      <div class="a-switch" id="roleSwitch" role="tablist">
+        <button type="button" class="active" data-role="siswa" role="tab" aria-selected="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9 12 4l10 5-10 5L2 9Z"/><path d="M6 11.5V15c0 1.8 2.7 3 6 3s6-1.2 6-3v-3.5"/><path d="M22 9v5"/></svg>
+          <span class="a-switch-label"><b>Siswa</b><small>Reset dengan NIS</small></span>
+        </button>
+        <button type="button" data-role="guru" role="tab" aria-selected="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7.5" width="18" height="12" rx="2.5"/><path d="M9 7.5V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5M3.5 13h17"/></svg>
+          <span class="a-switch-label"><b>Guru</b><small>Reset dengan NIP / NUPTK</small></span>
+        </button>
+      </div>
+
+      <div class="a-phases">
+        <!-- ===== FASE 1: VERIFIKASI ===== -->
+        <div class="a-phase active" id="phaseVerify">
+          <div id="alertBox"></div>
+          <form id="verifyForm" novalidate>
+            <div class="a-field" id="fNama">
+              <label for="rNama">Nama Lengkap <span class="req">*</span></label>
+              <div class="a-input">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-3.5 3.6-5 8-5s8 1.5 8 5"/></svg>
+                <input type="text" id="rNama" placeholder="Nama sesuai data sekolah" autocomplete="name">
+              </div>
+              <span class="a-feedback" id="fbNama"></span>
+            </div>
+
+            <div class="a-field" id="fIdentitas">
+              <label for="rIdentitas" id="lblIdentitas">NIS <span class="req">*</span></label>
+              <div class="a-input">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
+                <input type="text" id="rIdentitas" placeholder="Masukkan NIS" autocomplete="off" inputmode="text">
+              </div>
+              <span class="a-feedback" id="fbIdentitas"></span>
+            </div>
+
+            <div class="a-field" id="fEmail">
+              <label for="rEmail">Email Terdaftar <span class="req">*</span></label>
+              <div class="a-input">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+                <input type="email" id="rEmail" placeholder="nama@email.com" autocomplete="email">
+              </div>
+              <span class="a-feedback" id="fbEmail"></span>
+            </div>
+
+            <button type="submit" class="a-btn" id="btnVerify">
+              Verifikasi Data &amp; Lanjutkan
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </form>
+
+          <p class="auth-cta"><a href="login.html">Kembali ke Login</a></p>
+        </div>
+
+        <!-- ===== FASE 2: PASSWORD BARU ===== -->
+        <div class="a-phase" id="phaseNewPass">
+          <div id="alertBox2"></div>
+          <p id="resetContext" class="auth-note" style="margin-top:0;margin-bottom:16px;"></p>
+          <form id="resetForm" novalidate>
+            <div class="a-field" id="fPw">
+              <label for="pw">Kata Sandi Baru <span class="req">*</span></label>
+              <div class="a-input">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>
+                <input type="password" id="pw" placeholder="Minimal 6 karakter" autocomplete="new-password">
+                <button type="button" class="a-pass-toggle" id="togglePw" title="Tampilkan password">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+              <div class="pw-meter" id="pwMeter">
+                <span class="pw-meter__bars"><i></i><i></i><i></i></span>
+                <span class="pw-meter__label" id="pwLabel">Minimal 6 karakter</span>
+              </div>
+              <span class="a-feedback" id="fbPw"></span>
+            </div>
+
+            <div class="a-field" id="fCf">
+              <label for="cf">Ulangi Kata Sandi <span class="req">*</span></label>
+              <div class="a-input">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>
+                <input type="password" id="cf" placeholder="Ulangi kata sandi" autocomplete="new-password">
+                <button type="button" class="a-pass-toggle" id="toggleCf" title="Tampilkan password">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+              <span class="a-feedback" id="fbCf"></span>
+            </div>
+
+            <button type="submit" class="a-btn" id="btnSave">
+              Simpan Kata Sandi Baru
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </button>
+          </form>
+          <button type="button" class="a-back-link" id="btnBackVerify" style="margin-top:14px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+            Kembali ke Verifikasi
+          </button>
+        </div>
+
+        <!-- ===== FASE 3: SUKSES ===== -->
+        <div class="a-phase" id="phaseDone">
+          <div id="successBox"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    (function () {
+      const S = window.SIPUS, A = window.APP;
+      const $ = id => document.getElementById(id);
+
+      let state = { role: "siswa", user: null };
+
+      const ICONS = {
+        alert: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>',
+        ok: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 5 5 9-11"/></svg>',
+        arrow: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
+      };
+
+      function alertBox(boxId, msg) {
+        $(boxId).innerHTML = msg
+          ? `<div class="a-alert a-alert--error">${ICONS.alert}<span>${A.esc(msg)}</span></div>`
+          : "";
+      }
+      function setErr(fid, fbId, msg) {
+        $(fbId).textContent = msg;
+        $(fbId).className = "a-feedback is-error";
+        $(fid).classList.add("is-invalid");
+      }
+      function clearFb() {
+        document.querySelectorAll(".a-feedback").forEach(f => { f.textContent = ""; f.className = "a-feedback"; });
+        document.querySelectorAll(".a-field").forEach(f => f.classList.remove("is-invalid", "is-valid"));
+      }
+      function normId(s) { return String(s || "").trim(); }
+      function normEmail(s) { return String(s || "").trim().toLowerCase().replace(/\s+/g, " "); }
+      function normName(s) {
+        return String(s || "").toLowerCase()
+          .replace(/^(bapak|ibu|bu|pak|guru)\s+/i, "")
+          .replace(/[^a-z0-9\s]/g, " ")
+          .replace(/\s+/g, " ").trim();
+      }
+
+      function setRole(role) {
+        state.role = role;
+        state.user = null;
+        document.querySelectorAll("#roleSwitch button").forEach(b => {
+          const on = b.dataset.role === role;
+          b.classList.toggle("active", on);
+          b.setAttribute("aria-selected", String(on));
+          b.setAttribute("tabindex", on ? "0" : "-1");
+        });
+        const isSiswa = role === "siswa";
+        $("lblIdentitas").innerHTML = (isSiswa ? "NIS" : "NIP / NUPTK / No. Induk") + ' <span class="req">*</span>';
+        $("rIdentitas").placeholder = isSiswa ? "Masukkan NIS" : "Masukkan NIP / NUPTK / No. Induk";
+        $("rIdentitas").inputmode = isSiswa ? "numeric" : "text";
+        goVerify();
+      }
+
+      function goVerify() {
+        state.user = null;
+        $("phaseVerify").classList.add("active");
+        $("phaseNewPass").classList.remove("active");
+        $("phaseDone").classList.remove("active");
+      }
+
+      function toggle(btn, input) {
+        $(btn).onclick = () => {
+          const p = $(input);
+          const isPwd = p.type === "password";
+          p.type = isPwd ? "text" : "password";
+          $(btn).innerHTML = isPwd
+            ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.1 10.1 0 0 1 12 20c-7 0-11-8-11-8a18.5 18.5 0 0 1 5.06-5.94M9.9 4.24A9.1 9.1 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19M14.12 14.12a3 3 0 1 1-4.24-4.24"/><path d="M1 1l22 22"/></svg>'
+            : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+        };
+      }
+      toggle("togglePw", "pw");
+      toggle("toggleCf", "cf");
+
+      function strength(pw) { let s = 0; if (pw.length >= 6) s++; if (pw.length >= 10) s++; if (/[a-z]/.test(pw) && /[A-Z]/.test(pw)) s++; if (/\d/.test(pw) || /\W/.test(pw)) s++; return s; }
+
+      $("pw").oninput = function () {
+        const v = this.value;
+        const meter = $("pwMeter");
+        const label = $("pwLabel");
+        $("fbPw").textContent = ""; $("fbPw").className = "a-feedback";
+        $("fPw").classList.remove("is-invalid", "is-valid");
+        if (!v) { meter.className = "pw-meter"; label.textContent = "Minimal 6 karakter"; return; }
+        const sc = strength(v);
+        meter.classList.add("show");
+        meter.classList.toggle("weak", sc <= 1);
+        meter.classList.toggle("fair", sc === 2);
+        meter.classList.toggle("strong", sc >= 3);
+        const on = sc >= 3 ? 3 : sc === 2 ? 2 : 1;
+        meter.querySelectorAll("i").forEach((i, idx) => i.classList.toggle("on", idx < on));
+        label.textContent = sc >= 3 ? "Kuat" : sc === 2 ? "Cukup" : "Lemah";
+      };
+      $("cf").oninput = function () {
+        const v = this.value;
+        const fb = $("fbCf");
+        if (!v) { fb.textContent = ""; fb.className = "a-feedback"; $("fCf").classList.remove("is-invalid", "is-valid"); return; }
+        if (v === $("pw").value) { fb.textContent = "Kata sandi sesuai."; fb.className = "a-feedback is-ok"; $("fCf").classList.remove("is-invalid"); $("fCf").classList.add("is-valid"); }
+        else { fb.textContent = "Kata sandi belum sama."; fb.className = "a-feedback is-error"; $("fCf").classList.add("is-invalid"); $("fCf").classList.remove("is-valid"); }
+      };
+
+      $("roleSwitch").querySelectorAll("button").forEach(b => b.onclick = () => setRole(b.dataset.role));
+
+      document.querySelectorAll('[data-role]').forEach(b => b.addEventListener("keydown", e => {
+        if (e.key === " " || e.key === "Enter") { e.preventDefault(); setRole(b.dataset.role); }
+      }));
+
+      // ---------- FASE 1: verifikasi identitas ----------
+      $("verifyForm").onsubmit = function (e) {
+        e.preventDefault();
+        clearFb();
+        alertBox("alertBox", "");
+        let ok = true;
+        const nama = $("rNama").value;
+        const identitas = $("rIdentitas").value.trim();
+        const email = $("rEmail").value.trim();
+        if (nama.length < 3) { setErr("fNama", "fbNama", "Nama lengkap wajib diisi (minimal 3 karakter)."); ok = false; }
+        if (!identitas) { setErr("fIdentitas", "fbIdentitas", state.role === "siswa" ? "NIS wajib diisi." : "NIP / NUPTK / No. Induk wajib diisi."); ok = false; }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setErr("fEmail", "fbEmail", "Format email tidak valid."); ok = false; }
+        if (!ok) return;
+
+        const db = S.getDB();
+        let profile = null, user = null;
+
+        if (state.role === "siswa") {
+          profile = (db.students || []).find(st => normId(st.nis) === normId(identitas) && normName(st.nama) === normName(nama) && normEmail(st.email) === normEmail(email));
+          if (profile) user = db.users.find(u => u.id === profile.user_id);
+        } else {
+          profile = (db.teacher_profiles || []).find(t => normId(t.nip) === normId(identitas) && normName(t.nama) === normName(nama) && normEmail(t.email) === normEmail(email));
+          if (profile) user = db.users.find(u => u.id === profile.user_id);
+        }
+
+        if (!profile || !user) {
+          alertBox("alertBox", "Data tidak cocok dengan akun terdaftar. Periksa kembali nama lengkap, " +
+            (state.role === "siswa" ? "NIS" : "NIP / NUPTK / No. Induk") + ", dan email yang kamu isi.");
+          return;
+        }
+
+        state.user = user;
+        $("resetContext").innerHTML = "Akun <b>" + A.esc(user.username) + "</b> terverifikasi. Buat kata sandi baru untuk akun tersebut.";
+        $("phaseVerify").classList.remove("active");
+        $("phaseNewPass").classList.add("active");
+      };
+
+      $("btnBackVerify").onclick = () => { alertBox("alertBox2", ""); goVerify(); };
+
+      // ---------- FASE 2: simpan password baru ----------
+      $("resetForm").onsubmit = function (e) {
+        e.preventDefault();
+        alertBox("alertBox2", "");
+        let ok = true;
+        const pw = $("pw").value;
+        const cf = $("cf").value;
+        if (pw.length < 6) { setErr("fPw", "fbPw", "Kata sandi minimal 6 karakter."); ok = false; }
+        if (cf !== pw || !cf) { setErr("fCf", "fbCf", "Ulangi kata sandi belum sama."); ok = false; }
+        if (!ok) return;
+
+        const btn = $("btnSave");
+        btn.classList.add("is-loading");
+        setTimeout(() => {
+          btn.classList.remove("is-loading");
+          const db = S.getDB();
+          state.user.password = pw;
+          db.audit_logs = db.audit_logs || [];
+          db.audit_logs.unshift({
+            id: S.uid("au-"), user_id: state.user.id,
+            action: "Reset Password", module: "Auth",
+            detail: "Kata sandi diatur ulang secara mandiri melalui halaman Lupa Password.",
+            created_at: new Date().toISOString()
+          });
+          S.saveDB(db);
+          $("phaseNewPass").classList.remove("active");
+          $("phaseDone").classList.add("active");
+          $("successBox").innerHTML = `
+            <div class="a-success">
+              <div class="a-check-badge ok ring" style="position:relative;">${ICONS.ok}</div>
+              <h3>Kata Sandi Diperbarui</h3>
+              <p>Kata sandi akun <b>${A.esc(state.user.username)}</b> berhasil diganti. Silakan masuk dengan kata sandi baru.</p>
+              <a href="login.html" class="a-btn" style="text-decoration:none;">Masuk ke Perpustakaan ${ICONS.arrow}</a>
+            </div>`;
+        }, 550);
+      };
+
+      setRole("siswa");
+    })();
+  </script>
+</body>
+</html>

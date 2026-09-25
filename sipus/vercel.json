@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/login", "destination": "/login.html" },
+    { "source": "/siswa", "destination": "/app-student.html" },
+    { "source": "/admin", "destination": "/app-admin.html" }
+  ]
+}
