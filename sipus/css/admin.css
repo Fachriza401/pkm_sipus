@@ -561,11 +561,94 @@ body.admin-mode ::-webkit-scrollbar-thumb:hover { background: #A9BFDB; }
    ============================================================ */
 @media (max-width: 992px) {
   body.admin-mode .content { padding: 18px; }
-  body.admin-mode .hero { min-height: 0; padding-right: 30px; }
+  /* sisakan ruang untuk .hero-art (250px) — jangan pakai padding-right kecil */
+  body.admin-mode .hero { min-height: 0; padding: 26px 268px 26px 24px; }
+}
+@media (max-width: 700px) {
+  body.admin-mode .hero { padding: 22px 18px 24px; }
+  body.admin-mode .hero h2 { font-size: 19px; line-height: 1.3; }
+  body.admin-mode .hero p { font-size: 13.5px; }
+  body.admin-mode .hero-cta .btn { flex: 1 1 150px; justify-content: center; min-height: 46px; }
 }
 @media (max-width: 640px) {
   body.admin-mode .page-head h1 { font-size: 20px; }
   body.admin-mode .stat-info .num { font-size: 22px; }
+  body.admin-mode .hero-art { display: none; }
+  body.admin-mode .content { padding: 14px; padding-bottom: 92px; }
+}
+@media (max-width: 700px) {
+  /* Tabel admin: lepas min-width paksa, rapatkan sel.
+     Di layar sempit tabel tetap bisa digeser horizontal di dalam .table-wrap,
+     tidak lagi melebarkan halaman. */
+  body.admin-mode .table { min-width: 0; }
+  body.admin-mode .table th,
+  body.admin-mode .table td { padding: 10px 11px; font-size: 12.5px; }
+  body.admin-mode .table th { font-size: 11px; letter-spacing: .03em; }
+  body.admin-mode .table-wrap { border-radius: 14px; }
+  body.admin-mode .table td:last-child,
+  body.admin-mode .table th:last-child { white-space: nowrap; }
+  body.admin-mode .btn-sm { min-height: 44px; }
+  body.admin-mode .action-btn { min-width: 44px; min-height: 44px; }
+}
+
+/* Tabel admin -> kartu di ponsel: pilih ulang gaya sel & judul
+   agar tidak governed oleh aturan tabel admin (min-width, nowrap, border). */
+@media (max-width: 640px) {
+  body.admin-mode .table.table-cards { min-width: 0; }
+  body.admin-mode .table.table-cards tbody,
+  body.admin-mode .table.table-cards tr,
+  body.admin-mode .table.table-cards td { display: block; width: 100%; }
+  body.admin-mode .table.table-cards thead { display: none; }
+  body.admin-mode .table.table-cards tr {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: #fff;
+    margin: 0 0 12px;
+    padding: 12px 14px;
+  }
+  body.admin-mode .table.table-cards tr:last-child { margin-bottom: 0; }
+  body.admin-mode .table.table-cards tr:hover { background: #fff; }
+  body.admin-mode .table.table-cards td,
+  body.admin-mode .table.table-cards td:last-child {
+    display: grid;
+    grid-template-columns: minmax(84px, 34%) 1fr;
+    gap: 10px;
+    align-items: start;
+    padding: 7px 0;
+    font-size: 12.5px;
+    text-align: left;
+    white-space: normal;
+    border-bottom: 1px dashed #EDF2F8;
+  }
+  body.admin-mode .table.table-cards td::before {
+    content: attr(data-label);
+    font-size: 10.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  body.admin-mode .table.table-cards td:last-child { border-bottom: none; }
+  body.admin-mode .table.table-cards td:has(> .td-cell) { grid-template-columns: 1fr; }
+  body.admin-mode .table.table-cards td:has(> .td-cell)::before { margin-bottom: 4px; }
+  /* judul buku / nama siswa: boleh wrap penuh, bukan ellipsis */
+  body.admin-mode .table.table-cards .td-cell .td-title,
+  body.admin-mode .table.table-cards .td-cell .sub {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    max-width: none;
+  }
+  body.admin-mode .table.table-cards .row-empty td {
+    display: block;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+    border-bottom: none;
+    padding: 0;
+  }
+  body.admin-mode .table.table-cards .row-empty td::before { content: none; }
 }
 
 /* ============================================================

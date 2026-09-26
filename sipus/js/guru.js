@@ -531,20 +531,20 @@
       ${list.length ? `
       <div class="search-bar mb-16" style="max-width:460px;">${ICONS.search}<input type="text" id="uslSearch" placeholder="Cari judul, penulis, atau kategori usulan..."></div>
       <div class="table-wrap">
-        <table class="table">
+        <table class="table table-cards">
           <thead><tr><th>No</th><th>Judul Buku</th><th>Penulis</th><th>Kategori</th><th>Tanggal</th><th>Status</th><th>Aksi</th></tr></thead>
           <tbody id="uslTbody">
             ${list.map((p, i) => {
               const st = reqStatusInfo(p.status);
               const isOwn = p.type === "karya_sendiri";
               return `<tr data-search="${esc((p.title + " " + (p.author || "") + " " + categoryName(p.category_id) + " " + st.label).toLowerCase())}">
-                <td>${i + 1}</td>
-                <td><div class="td-title">${esc(p.title)}</div>${isOwn ? `<div class="sub">✍️ Karya sendiri</div>` : ""}${p.review_note ? `<div class="sub">Catatan: ${esc(p.review_note)}</div>` : ""}</td>
-                <td>${esc(p.author || "-")}</td>
-                <td>${esc(categoryName(p.category_id))}</td>
-                <td>${fmtDate(p.created_at)}</td>
-                <td><span class="badge badge-${st.type}">${esc(st.label)}</span></td>
-                <td>
+                <td data-label="No">${i + 1}</td>
+                <td data-label="Judul Buku"><div class="td-title">${esc(p.title)}</div>${isOwn ? `<div class="sub">✍️ Karya sendiri</div>` : ""}${p.review_note ? `<div class="sub">Catatan: ${esc(p.review_note)}</div>` : ""}</td>
+                <td data-label="Penulis">${esc(p.author || "-")}</td>
+                <td data-label="Kategori">${esc(categoryName(p.category_id))}</td>
+                <td data-label="Tanggal">${fmtDate(p.created_at)}</td>
+                <td data-label="Status"><span class="badge badge-${st.type}">${esc(st.label)}</span></td>
+                <td data-label="Aksi">
                   <div class="td-actions">
                     <button class="action-btn" title="Detail" data-usl-view="${p.id}">${ICONS.eye}</button>
                     ${p.status === "pending" ? `<button class="action-btn" title="Ubah" data-usl-edit="${p.id}">${ICONS.edit}</button>
@@ -685,19 +685,19 @@
       <div class="search-bar mb-16" style="max-width:460px;">${ICONS.search}<input type="text" id="recSearch" placeholder="Cari nama judul, pengarang, atau kategori..."></div>
       ${list.length ? `
       <div class="table-wrap">
-        <table class="table">
+        <table class="table table-cards">
           <thead><tr><th>No</th><th>Judul Buku</th><th>Kategori</th><th>Target Kelas</th><th>Tanggal</th><th>Aksi</th></tr></thead>
           <tbody id="recTbody">
             ${list.map((r, i) => {
               const b = bookById(r.book_id);
               if (!b) return "";
               return `<tr data-search="${esc((b.judul + " " + b.penulis + " " + categoryName(b.kategori_id)).toLowerCase())}">
-                <td>${i + 1}</td>
-                <td><div class="td-title">${esc(b.judul)}</div><div class="sub">${esc(b.penulis)}</div></td>
-                <td>${esc(categoryName(b.kategori_id))}</td>
-                <td>${targetBadges(r.target_class)}</td>
-                <td>${fmtDate(r.created_at)}</td>
-                <td><button class="btn btn-ghost btn-sm" data-rv="${r.id}">Lihat</button> <button class="action-btn red" title="Hapus" data-rd="${r.id}">${ICONS.trash}</button></td>
+                <td data-label="No">${i + 1}</td>
+                <td data-label="Judul Buku"><div class="td-title">${esc(b.judul)}</div><div class="sub">${esc(b.penulis)}</div></td>
+                <td data-label="Kategori">${esc(categoryName(b.kategori_id))}</td>
+                <td data-label="Target Kelas">${targetBadges(r.target_class)}</td>
+                <td data-label="Tanggal">${fmtDate(r.created_at)}</td>
+                <td data-label="Aksi"><div class="cell-actions"><button class="btn btn-ghost btn-sm" data-rv="${r.id}">Lihat</button> <button class="action-btn red" title="Hapus" data-rd="${r.id}">${ICONS.trash}</button></div></td>
               </tr>`;
             }).join("")}
           </tbody>
@@ -729,7 +729,7 @@
   function targetBadges(targetClass) {
     const list = typeof targetClass === "string" ? targetClass.split(/[,\-–—]+/).map(s => s.trim()).filter(Boolean) : [];
     if (!list.length) return `<span class="badge badge-neutral">Semua kelas</span>`;
-    return list.map(k => `<span class="badge badge-primary" style="margin-right:4px;">${esc(k)}</span>`).join("");
+    return list.map(k => `<span class="badge badge-primary">${esc(k)}</span>`).join("");
   }
 
   function recForm(bookId) {
@@ -836,22 +836,22 @@
         </select>
       </div>
       <div class="table-wrap">
-        <table class="table">
+        <table class="table table-cards">
           <thead><tr><th>No</th><th>Nama Siswa</th><th>Judul Buku</th><th>Tgl Pinjam</th><th>Tgl Jatuh Tempo</th><th>Status</th></tr></thead>
           <tbody id="pmTbody">
             ${list.map((l, i) => {
               const b = bookById(l.book_id); const std = studentById(l.student_id);
               if (!b || !std) return "";
               return `<tr data-search="${esc((std.nama + " " + b.judul).toLowerCase())}">
-                <td>${i + 1}</td>
-                <td><div class="td-title">${esc(std.nama)}</div><div class="sub">${esc(std.kelas)} ${esc(std.jurusan)}</div></td>
-                <td>${esc(b.judul)}</td>
-                <td>${fmtDate(l.loan_date)}</td>
-                <td>${fmtDate(l.due_date)}</td>
-                <td>${A.loanBadge(l)}</td>
+                <td data-label="No">${i + 1}</td>
+                <td data-label="Nama Siswa"><div class="td-title">${esc(std.nama)}</div><div class="sub">${esc(std.kelas)} ${esc(std.jurusan)}</div></td>
+                <td data-label="Judul Buku">${esc(b.judul)}</td>
+                <td data-label="Tgl Pinjam">${fmtDate(l.loan_date)}</td>
+                <td data-label="Jatuh Tempo">${fmtDate(l.due_date)}</td>
+                <td data-label="Status">${A.loanBadge(l)}</td>
               </tr>`;
             }).join("")}
-            ${!list.length ? `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:32px;">Belum ada data peminjaman.</td></tr>` : ""}
+            ${!list.length ? `<tr class="row-empty"><td colspan="6">Belum ada data peminjaman.</td></tr>` : ""}
           </tbody>
         </table>
       </div>`;

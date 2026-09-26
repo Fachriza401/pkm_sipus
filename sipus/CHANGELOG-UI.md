@@ -1,3 +1,18 @@
+# SIPUS UI Refresh — v1.6.0
+
+- **Hardening mobile menyeluruh** (semua portal: siswa, guru, admin):
+  - **Tabel padat → kartu bertumpuk** di ≤640px. Semua 12 tabel kini memakai `.table-cards` + `data-label` pada setiap `<td>`, sehingga label kolom tetap terbaca tanpa header tabel. Berlaku untuk: Koleksi Buku, Stok Buku, Data Siswa, Data Guru, Peminjaman (aktif), Rekap Terlambat, Audit Aktivitas (admin); Usulan Buku, Rekomendasi Buku, Peminjaman Siswa (guru); Riwayat Peminjaman (siswa); Aktivitas Peminjaman (guru portal lama).
+  - Baris "belum ada data" kini memakai kelas `.row-empty` (gaya dipusatkan di desktop, jadi blok pesan penuh di mode kartu) — bukan lagi `style` inline.
+  - **Anti-overflow horizontal**: anak container layout diberi `min-width: 0` (grid/flex default `min-width:auto`), `word-break` longgar pada sel, dan `.table-wrap` memakai `overscroll-behavior-x: contain` + gradien penanda geser.
+  - **Modal jadi bottom sheet** di ≤640px: rata bawah, radius atas membulat, `max-height: 92svh`, padding aman `env(safe-area-inset-bottom)`, dan `transform` yang dihormati `prefers-reduced-motion`.
+  - **Jangkauan sentuh minimum 44px** untuk tombol, nav, chip filter, avatar, ikon aksi, dan toggle grafik; `input/select/textarea` dinaikkan ke `font-size: 16px` agar iOS tidak auto-zoom.
+  - Ikon-aksi tetap kotak 44px (tidak melebar), sedangkan tombol berlabel di kolom Aksi membagi rata memenuhi lebar kartu.
+  - **Gaya admin tidak lagi bentrok** dengan mode kartu: aturan `min-width`, `white-space: nowrap`, dan ellipsis pada `.td-cell` dinetralkan khusus di `.table-cards`.
+- **Perbaikan halaman Registrasi di ponsel**:
+  - Form Guru tidak lagi ikut tampil di bawah form Siswa. `body.auth-register .a-reg-form { display: grid }` di `@media (max-width: 768px)` menimpa aturan `[hidden]` dari UA stylesheet, sehingga `register.js` yang menyembunyikan form lewat `hidden` jadi tidak berlaku. Ditambahkan `.a-reg-form[hidden] { display: none !important; }`.
+  - Logo ponsel dihapus dari header brand (login & register) karena tidak terbaca di atas kartu putih. `.auth-mobile-brand` kini hanya menampilkan teks: kicker **Portal Akun** + nama **SIPUS** secara terpusat. Aturan yatim (`.auth-mobile-brand-logo`, `img`, `-text`, `-sub`, `-school`, dan panel kaca 1000px) ikut dibersihkan.
+  - `login.js` tetap aman: `brandSchoolMobile` di-check null sebelum diisi.
+
 # SIPUS UI Refresh — v1.5.0
 
 - **Notifikasi realtime & tersinkronisasi** untuk semua peran (Siswa, Guru, Admin):

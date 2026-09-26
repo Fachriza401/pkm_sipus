@@ -526,19 +526,19 @@
           ${ICONS.search}<input type="text" id="bkSearch" placeholder="Cari judul, penulis, ISBN, atau kode..." value="${esc(q)}">
         </div>
         <div class="table-wrap">
-          <table class="table">
+          <table class="table table-cards">
             <thead><tr><th>Kode</th><th>Judul</th><th>Kategori</th><th>Rak</th><th>Stok</th><th>Status</th><th>Aksi</th></tr></thead>
             <tbody>
               ${filtered.map(b => {
                 const st = bookStatus(b);
                 return `<tr>
-                  <td class="text-xs"><b>${esc(b.kode)}</b></td>
-                  <td><div class="td-cell">${coverThumb(b)}<div><div class="td-title">${esc(b.judul)}</div><div class="sub">${esc(b.penulis)} • ${esc(b.tahun)}</div></div></div></td>
-                  <td><span class="badge badge-neutral">${esc(categoryName(b.kategori_id))}</span></td>
-                  <td>${esc(b.rak)}</td>
-                  <td><span style="font-weight:750;">${b.available}</span><span class="muted">/${b.total}</span></td>
-                  <td><span class="badge badge-${st.type}">${esc(st.label)}</span></td>
-                  <td>
+                  <td data-label="Kode" class="text-xs"><b>${esc(b.kode)}</b></td>
+                  <td data-label="Judul"><div class="td-cell">${coverThumb(b)}<div><div class="td-title">${esc(b.judul)}</div><div class="sub">${esc(b.penulis)} • ${esc(b.tahun)}</div></div></div></td>
+                  <td data-label="Kategori"><span class="badge badge-neutral">${esc(categoryName(b.kategori_id))}</span></td>
+                  <td data-label="Rak">${esc(b.rak)}</td>
+                  <td data-label="Stok"><span style="font-weight:750;">${b.available}</span><span class="muted">/${b.total}</span></td>
+                  <td data-label="Status"><span class="badge badge-${st.type}">${esc(st.label)}</span></td>
+                  <td data-label="Aksi">
                     <div class="td-actions">
                       <button class="action-btn" title="Ubah" data-edit="${b.id}">${ICONS.edit}</button>
                       <button class="action-btn red" title="Hapus" data-del="${b.id}">${ICONS.trash}</button>
@@ -546,7 +546,7 @@
                   </td>
                 </tr>`;
               }).join("")}
-              ${!filtered.length ? `<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:32px;">Buku tidak ditemukan.</td></tr>` : ""}
+              ${!filtered.length ? `<tr class="row-empty"><td colspan="7">Buku tidak ditemukan.</td></tr>` : ""}
             </tbody>
           </table>
         </div>`;
@@ -773,22 +773,22 @@
         ${statCard("red", ICONS.alert, badAll, "Rusak / Hilang", "Perlu dicatat")}
       </div>
       <div class="table-wrap">
-        <table class="table">
+        <table class="table table-cards">
           <thead><tr><th>Kode</th><th>Judul</th><th colspan="4" style="text-align:center;">Stok</th><th>Aksi</th></tr></thead>
-          <thead><tr><th></th><th></th>
+          <thead class="thead-sub"><tr><th></th><th></th>
             <th style="text-align:center;color:var(--primary);">Total</th>
             <th style="text-align:center;color:var(--success);">Tersedia</th>
             <th style="text-align:center;color:var(--warning);">Dipinjam</th>
             <th style="text-align:center;color:var(--danger);">Rusak/Hilang</th><th></th></tr></thead>
           <tbody>
             ${list.map(b => `<tr>
-              <td class="text-xs"><b>${esc(b.kode)}</b></td>
-              <td><div class="td-cell">${coverThumb(b)}<div><div class="td-title">${esc(b.judul)}</div><div class="sub">${esc(b.penulis)}</div></div></div></td>
-              <td style="text-align:center;font-weight:750;">${b.total}</td>
-              <td style="text-align:center;color:var(--success);font-weight:750;">${b.available}</td>
-              <td style="text-align:center;color:var(--warning);font-weight:750;">${b.borrowed}</td>
-              <td style="text-align:center;color:var(--danger);font-weight:750;">${b.damaged + b.lost}</td>
-              <td><button class="btn btn-ghost btn-sm" style="font-weight:700;" data-stok="${b.id}">Ubah Stok</button></td>
+              <td data-label="Kode" class="text-xs"><b>${esc(b.kode)}</b></td>
+              <td data-label="Judul"><div class="td-cell">${coverThumb(b)}<div><div class="td-title">${esc(b.judul)}</div><div class="sub">${esc(b.penulis)}</div></div></div></td>
+              <td data-label="Total" class="num-center">${b.total}</td>
+              <td data-label="Tersedia" class="num-success">${b.available}</td>
+              <td data-label="Dipinjam" class="num-warning">${b.borrowed}</td>
+              <td data-label="Rusak/Hilang" class="num-danger">${b.damaged + b.lost}</td>
+              <td data-label="Aksi"><div class="cell-actions"><button class="btn btn-ghost btn-sm" style="font-weight:700;" data-stok="${b.id}">Ubah Stok</button></div></td>
             </tr>`).join("")}
           </tbody>
         </table>
@@ -870,20 +870,20 @@
         ${statCard("orange", ICONS.loan, activeLoansNow, "Pinjaman Aktif", "Sedang berjalan")}
       </div>
       <div class="table-wrap">
-        <table class="table">
+        <table class="table table-cards">
           <thead><tr><th>Siswa</th><th>NIS</th><th>Kelas</th><th>Jurusan</th><th>Dipinjam</th><th>Status Akun</th><th>Aksi</th></tr></thead>
           <tbody>
             ${rows.map(std => {
               const u = findUser(std);
               const active = dbx.loans.filter(l => l.student_id === std.id && ["active", "overdue"].includes(l.status)).length;
               return `<tr>
-                <td><div class="td-cell">${avatarMini(std.nama)}<div><div class="td-title">${esc(std.nama)}</div><div class="sub">${esc(std.email || "")}</div></div></div></td>
-                <td>${esc(std.nis)}</td>
-                <td>${esc(std.kelas)}</td>
-                <td>${esc(std.jurusan)}</td>
-                <td><span class="badge ${active > 0 ? "badge-primary" : "badge-neutral"}">${active} buku</span></td>
-                <td>${u && u.status === "Aktif" ? '<span class="badge badge-success">Aktif</span>' : '<span class="badge badge-danger">Nonaktif</span>'}</td>
-                <td>
+                <td data-label="Siswa"><div class="td-cell">${avatarMini(std.nama)}<div><div class="td-title">${esc(std.nama)}</div><div class="sub">${esc(std.email || "")}</div></div></div></td>
+                <td data-label="NIS">${esc(std.nis)}</td>
+                <td data-label="Kelas">${esc(std.kelas)}</td>
+                <td data-label="Jurusan">${esc(std.jurusan)}</td>
+                <td data-label="Dipinjam"><span class="badge ${active > 0 ? "badge-primary" : "badge-neutral"}">${active} buku</span></td>
+                <td data-label="Status Akun">${u && u.status === "Aktif" ? '<span class="badge badge-success">Aktif</span>' : '<span class="badge badge-danger">Nonaktif</span>'}</td>
+                <td data-label="Aksi">
                   <div class="td-actions">
                     <button class="action-btn" title="Detail" data-std-view="${std.id}">${ICONS.user}</button>
                     <button class="action-btn" title="Edit" data-std-edit="${std.id}">${ICONS.edit}</button>
@@ -1062,19 +1062,19 @@
         ${statCard("orange", ICONS.upload, dbx.book_requests.filter(x => x.status === "pending").length, "Usulan Pending", "Menunggu review")}
       </div>
       <div class="table-wrap">
-        <table class="table">
+        <table class="table table-cards">
           <thead><tr><th>Guru</th><th>NIP</th><th>Mapel</th><th>Kelas</th><th>Status Akun</th><th>Aksi</th></tr></thead>
           <tbody>
             ${rows.map(r => {
               const u = r.u; const t = r.t;
               const ini = String(u.name || (t && t.nama) || "?").split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
               return `<tr>
-                <td><div class="td-cell"><div class="mini-avatar" style="width:40px;height:40px;font-size:13px;">${esc(ini)}</div><div><div class="td-title">${esc(u.name || (t && t.nama) || "-")}</div><div class="sub">${esc(u.username)}${t ? " • " + esc(t.nip) : ""}</div></div></div></td>
-                <td>${esc(t && t.nip ? t.nip : "-")}</td>
-                <td>${esc(t && t.mapel ? t.mapel : "-")}</td>
-                <td>${esc(t && t.kelas ? t.kelas : "-")}</td>
-                <td>${u && u.status === "Aktif" ? '<span class="badge badge-success">Aktif</span>' : '<span class="badge badge-danger">Nonaktif</span>'}</td>
-                <td>
+                <td data-label="Guru"><div class="td-cell"><div class="mini-avatar" style="width:40px;height:40px;font-size:13px;">${esc(ini)}</div><div><div class="td-title">${esc(u.name || (t && t.nama) || "-")}</div><div class="sub">${esc(u.username)}${t ? " • " + esc(t.nip) : ""}</div></div></div></td>
+                <td data-label="NIP">${esc(t && t.nip ? t.nip : "-")}</td>
+                <td data-label="Mapel">${esc(t && t.mapel ? t.mapel : "-")}</td>
+                <td data-label="Kelas">${esc(t && t.kelas ? t.kelas : "-")}</td>
+                <td data-label="Status Akun">${u && u.status === "Aktif" ? '<span class="badge badge-success">Aktif</span>' : '<span class="badge badge-danger">Nonaktif</span>'}</td>
+                <td data-label="Aksi">
                   <div class="td-actions">
                     <button class="action-btn ${u && u.status === "Aktif" ? "red" : "green"}" title="${u && u.status === "Aktif" ? "Nonaktifkan" : "Aktifkan"}" data-gru-tog="${u.id}">${u && u.status === "Aktif" ? ICONS.x : ICONS.check}</button>
                     <button class="action-btn" title="Edit" data-gru-edit="${u.id}">${ICONS.edit}</button>
@@ -1242,18 +1242,18 @@
 
     const activeHtml = actives.length ? `
       <div class="table-wrap">
-        <table class="table">
+        <table class="table table-cards">
           <thead><tr><th>Buku</th><th>Siswa</th><th>Pinjam</th><th>Jatuh Tempo</th><th>Status</th><th style="text-align:right;">Aksi</th></tr></thead>
           <tbody>
             ${actives.map(l => {
               const b = bookById(l.book_id); const std = studentById(l.student_id);
               return `<tr class="${l.status === "overdue" ? "row-overdue" : ""}">
-                <td><div class="td-cell">${coverThumb(b)}<div><div class="td-title">${esc(b ? b.judul : "-")}</div><div class="sub">${esc(b ? b.penulis : "")}</div></div></div></td>
-                <td><div class="td-cell">${avatarMini(std ? std.nama : "-")}<div><div class="td-title">${esc(std ? std.nama : "-")}</div><div class="sub">${esc(std ? std.kelas + " " + std.jurusan : "")}</div></div></div></td>
-                <td>${fmtDate(l.loan_date)}</td>
-                <td>${fmtDate(l.due_date)}</td>
-                <td>${statusPill(l)}</td>
-                <td style="text-align:right;"><button class="btn btn-success btn-sm" data-ret="${l.id}">Terima Kembali</button></td>
+                <td data-label="Buku"><div class="td-cell">${coverThumb(b)}<div><div class="td-title">${esc(b ? b.judul : "-")}</div><div class="sub">${esc(b ? b.penulis : "")}</div></div></div></td>
+                <td data-label="Siswa"><div class="td-cell">${avatarMini(std ? std.nama : "-")}<div><div class="td-title">${esc(std ? std.nama : "-")}</div><div class="sub">${esc(std ? std.kelas + " " + std.jurusan : "")}</div></div></div></td>
+                <td data-label="Pinjam">${fmtDate(l.loan_date)}</td>
+                <td data-label="Jatuh Tempo">${fmtDate(l.due_date)}</td>
+                <td data-label="Status">${statusPill(l)}</td>
+                <td data-label="Aksi"><div class="cell-actions"><button class="btn btn-success btn-sm" data-ret="${l.id}">Terima Kembali</button></div></td>
               </tr>`;
             }).join("")}
           </tbody>
@@ -1652,14 +1652,14 @@
       <div class="section">
         <div class="section-head"><h3>Rekap Transaksi Terlambat</h3></div>
         <div class="table-wrap">
-          <table class="table">
+          <table class="table table-cards">
             <thead><tr><th>Kode</th><th>Buku</th><th>Siswa</th><th>Jatuh Tempo</th><th>Hari Terlambat</th></tr></thead>
             <tbody>
               ${overdue.length ? overdue.map(l => {
                 const b = bookById(l.book_id); const std = studentById(l.student_id);
                 const days = Math.max(1, Math.ceil((Date.now() - new Date(l.due_date).getTime()) / 86400000));
-                return `<tr><td class="text-xs">${esc(l.loan_code)}</td><td><div class="td-cell">${coverThumb(b)}<div><div class="td-title">${esc(b.judul)}</div><div class="sub">${esc(b.penulis)}</div></div></div></td><td><div class="td-cell">${avatarMini(std ? std.nama : "-")}<div><div class="td-title">${esc(std.nama)}</div><div class="sub">${esc(std.kelas)} ${esc(std.jurusan)}</div></div></div></td><td>${fmtDate(l.due_date)}</td><td><span class="status-pill pill-overdue">${days} hari terlambat</span></td></tr>`;
-              }).join("") : `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:24px;">Tidak ada transaksi terlambat. 🎉</td></tr>`}
+                return `<tr><td data-label="Kode" class="text-xs">${esc(l.loan_code)}</td><td data-label="Buku"><div class="td-cell">${coverThumb(b)}<div><div class="td-title">${esc(b.judul)}</div><div class="sub">${esc(b.penulis)}</div></div></div></td><td data-label="Siswa"><div class="td-cell">${avatarMini(std ? std.nama : "-")}<div><div class="td-title">${esc(std.nama)}</div><div class="sub">${esc(std.kelas)} ${esc(std.jurusan)}</div></div></div></td><td data-label="Jatuh Tempo">${fmtDate(l.due_date)}</td><td data-label="Hari Terlambat"><span class="status-pill pill-overdue">${days} hari terlambat</span></td></tr>`;
+              }).join("") : `<tr class="row-empty"><td colspan="5">Tidak ada transaksi terlambat. 🎉</td></tr>`}
             </tbody>
           </table>
         </div>
@@ -1696,21 +1696,21 @@
         <p>Catatan siapa yang mengubah buku, stok, siswa, atau transaksi.</p>
       </div>
       <div class="table-wrap">
-        <table class="table">
+        <table class="table table-cards">
           <thead><tr><th>Waktu</th><th>Petugas</th><th>Aksi</th><th>Modul</th><th>Detail</th></tr></thead>
           <tbody>
             ${logs.map(au => {
               const u = dbx.users.find(x => x.id === au.user_id);
               const badgeType = au.action === "Tambah" ? "success" : au.action === "Hapus" || au.action === "Tolak" ? "danger" : au.action === "Login" ? "neutral" : "primary";
               return `<tr>
-                <td class="text-xs">${fmtDate(au.created_at)}</td>
-                <td><div class="td-cell">${avatarMini(u ? u.name : "Sistem")}<div><div class="td-title">${esc(u ? u.name : "Sistem")}</div><div class="sub">${esc(u ? (u.role === "admin" ? "Admin" : "Siswa") : "")}</div></div></div></td>
-                <td><span class="badge badge-${badgeType}">${esc(au.action)}</span></td>
-                <td>${esc(au.module)}</td>
-                <td class="text-sm">${esc(au.detail)}</td>
+                <td data-label="Waktu" class="text-xs">${fmtDate(au.created_at)}</td>
+                <td data-label="Petugas"><div class="td-cell">${avatarMini(u ? u.name : "Sistem")}<div><div class="td-title">${esc(u ? u.name : "Sistem")}</div><div class="sub">${esc(u ? (u.role === "admin" ? "Admin" : "Siswa") : "")}</div></div></div></td>
+                <td data-label="Aksi"><span class="badge badge-${badgeType}">${esc(au.action)}</span></td>
+                <td data-label="Modul">${esc(au.module)}</td>
+                <td data-label="Detail" class="text-sm">${esc(au.detail)}</td>
               </tr>`;
             }).join("")}
-            ${!logs.length ? `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:24px;">Belum ada aktivitas tercatat.</td></tr>` : ""}
+            ${!logs.length ? `<tr class="row-empty"><td colspan="5">Belum ada aktivitas tercatat.</td></tr>` : ""}
           </tbody>
         </table>
       </div>`;

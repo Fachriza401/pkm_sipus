@@ -267,27 +267,31 @@ body.auth-page select { font-family: inherit; font-size: 14.5px; }
   background: linear-gradient(90deg, var(--a-primary-deep), var(--a-primary), var(--a-accent));
 }
 
-.auth-mobile-brand { display: none; align-items: center; justify-content: center; gap: 12px; margin-bottom: 20px; }
-.auth-mobile-brand-logo {
-  flex: 0 0 auto;
-  display: grid;
-  place-items: center;
-  width: 58px;
-  height: 58px;
-  border: 1px solid rgba(11, 92, 173, .12);
-  border-radius: 18px;
-  background: linear-gradient(145deg, #FFFFFF 0%, #E9F3FD 100%);
-  box-shadow: 0 10px 24px rgba(9, 42, 84, .14);
+/* Brand ringkas khusus ponsel: tanpa logo, cukup konteks + nama aplikasi */
+.auth-mobile-brand {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  margin-bottom: 18px;
+  text-align: center;
 }
-.auth-mobile-brand img {
-  width: 42px;
-  height: 42px;
-  object-fit: contain;
+.auth-mobile-brand-kicker {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: .9px;
+  text-transform: uppercase;
+  color: var(--a-primary);
 }
-.auth-mobile-brand-name { font-family: var(--a-display); font-weight: 800; font-size: 20px; color: var(--a-ink); }
-.auth-mobile-brand-text { min-width: 0; text-align: left; }
-.auth-mobile-brand-sub { font-size: 12px; color: var(--a-muted); margin-top: 2px; }
-.auth-mobile-brand-school { font-size: 11px; font-weight: 700; letter-spacing: .3px; color: var(--a-primary); margin-top: 3px; }
+.auth-mobile-brand-name {
+  font-family: var(--a-display);
+  font-weight: 800;
+  font-size: 26px;
+  line-height: 1.15;
+  letter-spacing: -.3px;
+  color: var(--a-ink);
+}
 
 .auth-card-head { text-align: center; margin-bottom: 22px; }
 .auth-card-kicker {
@@ -382,11 +386,11 @@ body.auth-page select { font-family: inherit; font-size: 14.5px; }
 /* tombol show/hide password */
 .a-pass-toggle {
   position: absolute;
-  right: 5px;
+  right: 3px;
   top: 50%;
   transform: translateY(-50%);
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
   display: grid;
   place-items: center;
   border: 0;
@@ -1008,7 +1012,7 @@ body.auth-page .auth-shell { min-height: 100svh; }
   body.auth-page .auth-card { padding: 16px 30px 14px; }
   body.auth-page .auth-card-head h2 { font-size: 22px; }
   body.auth-page .auth-card-head { margin-bottom: 10px; }
-  body.auth-page .a-input input, body.auth-page .a-input select { height: 42px; }
+  body.auth-page .a-input input, body.auth-page .a-input select { height: 44px; }
   body.auth-page .a-field { margin-bottom: 8px; }
   body.auth-page .a-field > label { margin-bottom: 5px; }
   body.auth-page .a-row { margin-bottom: 8px; }
@@ -1032,13 +1036,6 @@ body.auth-page .auth-shell { min-height: 100svh; }
   background: none;
   box-shadow: none;
   filter: drop-shadow(0 10px 22px rgba(0, 30, 80, .32));
-}
-.auth-mobile-brand img {
-  padding: 0;
-  border-radius: 0;
-  background: none;
-  box-shadow: none;
-  filter: drop-shadow(0 6px 14px rgba(9, 42, 84, .22));
 }
 
 /* ============================================================
@@ -1164,6 +1161,73 @@ body.auth-login .auth-brand-top + .auth-brand-copy .auth-kicker { margin-top: 52
 .a-check--terms input { margin-top: 4px; flex-shrink: 0; width: 17px; height: 17px; }
 
 /* ============================================================
+   REGISTER — FOKUS: panel branding disembunyikan di layar kecil
+   ============================================================ */
+
+/* Halaman registrasi tidak butuh panel descriptor panjang di ponsel.
+   Cukup kartu formulir + brand ringkas (sama seperti halaman login). */
+@media (max-width: 1000px) {
+  body.auth-register .auth-shell { min-height: 100vh; min-height: 100svh; }
+  body.auth-register .auth-main { overflow-x: clip; }
+  body.auth-register .auth-card { max-width: 560px; margin: 0 auto; }
+}
+@media (max-width: 768px) {
+  body.auth-register .auth-brand { display: none !important; }
+  body.auth-register .auth-shell { min-height: 100svh; display: flex; flex-direction: column; }
+  body.auth-register .auth-main {
+    width: 100%;
+    min-height: 100svh;
+    overflow-x: clip;
+    align-items: flex-start;
+    padding: 18px 14px calc(26px + env(safe-area-inset-bottom, 0px));
+    background:
+      radial-gradient(circle at 12% 8%, rgba(11, 92, 173, .12), transparent 28%),
+      radial-gradient(circle at 90% 86%, rgba(244, 198, 46, .13), transparent 24%),
+      linear-gradient(155deg, #F8FBFF 0%, #EAF3FC 100%);
+  }
+  body.auth-register .auth-main::before { display: none; }
+  body.auth-register .auth-main::after { right: -220px; bottom: -220px; }
+  body.auth-register .auth-card {
+    margin-top: 0;
+    width: 100%;
+    max-width: 460px;
+    padding: 22px 18px 20px;
+    box-shadow: 0 28px 72px rgba(9, 42, 84, .18), 0 4px 14px rgba(9, 42, 84, .06);
+  }
+  body.auth-register .auth-card::before { left: 18px; right: 18px; }
+  body.auth-register .a-reg-form { display: grid; gap: 14px; }
+  body.auth-register .a-btn { height: auto; min-height: 50px; font-size: 15px; }
+}
+
+/* `display: grid` di atas menimpa aturan [hidden] dari UA stylesheet,
+   sehingga form Guru ikut tampil di bawah form Siswa di ponsel.
+   Paksa sembunyi sesuai peran yang dipilih. */
+.a-reg-form[hidden] { display: none !important; }
+
+/* Anti-overflow universal: kolom/grid tidak boleh memaksa halaman melebar */
+.auth-main,
+.auth-card,
+.a-reg-form,
+.a-grid2,
+.a-field,
+.a-input,
+.a-input input,
+.a-input select,
+.a-input textarea,
+.a-check { min-width: 0; max-width: 100%; }
+.a-input input,
+.a-input select,
+.a-input textarea { width: 100%; }
+
+/* S.square/password & tombolnya tetap comfortable di layar sempit */
+@media (max-width: 768px) {
+  .a-input { min-height: 48px; }
+  .a-pass-toggle { min-width: 44px; min-height: 44px; }
+  .a-switch button { min-height: 56px; }
+  .a-check { min-height: 44px; padding: 12px; }
+}
+
+/* ============================================================
    RECOVERY (Lupa Password / Ganti Kata Sandi) — gradasi + kaca
    ============================================================ */
 body.auth-recovery .auth-centered {
@@ -1265,17 +1329,6 @@ body.auth-recovery .auth-back-link:hover { color: #04386D; }
   -webkit-backdrop-filter: blur(16px) saturate(150%);
   box-shadow: 0 14px 34px rgba(3, 26, 56, .28), inset 0 1px 0 rgba(255, 255, 255, .22);
 }
-@media (max-width: 1000px) {
-  .auth-mobile-brand {
-    padding: 10px 14px;
-    border-radius: 18px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, .78), rgba(255, 255, 255, .46));
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, .75);
-    box-shadow: 0 12px 28px rgba(9, 42, 84, .14);
-  }
-}
 
 /* ============================================================
    RESPONSIVE LANJUTAN — ponsel kecil & keyboard Android
@@ -1284,9 +1337,8 @@ body.auth-recovery .auth-back-link:hover { color: #04386D; }
   .auth-main { padding-left: 10px; padding-right: 10px; }
   .auth-card { padding: 26px 16px 22px; }
   .auth-card::before { left: 16px; right: 16px; }
-  .auth-mobile-brand { gap: 9px; padding: 9px 11px; }
-  .auth-mobile-brand img { width: 44px; height: 44px; }
-  .auth-mobile-brand-name { font-size: 18px; }
+  .auth-mobile-brand { margin-bottom: 12px; }
+  .auth-mobile-brand-name { font-size: 23px; }
   .a-switch { padding: 6px; gap: 6px; }
   .a-switch button { padding: 8px 9px; }
   .a-switch-label { font-size: 13px; }

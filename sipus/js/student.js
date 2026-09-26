@@ -115,6 +115,7 @@
     notifikasi: () => { state.view = "notifikasi"; state.bookId = null; renderLayout(); renderNotifikasi(); scrollTop(); },
     profil: () => { state.view = "profil"; state.bookId = null; renderLayout(); renderProfil(); scrollTop(); },
     bantuan: () => { state.view = "bantuan"; state.bookId = null; renderLayout(); renderBantuan(); scrollTop(); },
+    pinjamCepat: () => quickBorrow(),
     keluar: () => logout()
   };
 
@@ -676,7 +677,7 @@
 
       ${all.length ? `
       <div class="table-wrap">
-        <table class="table">
+        <table class="table table-cards">
           <thead><tr>
             <th>Kode</th><th>Buku</th><th>Tanggal Pinjam</th><th>Jatuh Tempo</th><th>Dikembalikan</th><th>Status</th>
           </tr></thead>
@@ -686,12 +687,12 @@
               const info = loanStatusInfo(l);
               const overdueFlag = (l.status === "returned" && l.return_date && new Date(l.due_date).getTime() < new Date(l.return_date).getTime());
               return `<tr>
-                <td class="text-xs">${esc(l.loan_code)}</td>
-                <td><div class="td-title">${esc(b ? b.judul : "-")}</div><div class="sub">${esc(b ? b.penulis : "")}</div></td>
-                <td>${fmtDate(l.loan_date)}</td>
-                <td>${fmtDate(l.due_date)}</td>
-                <td>${l.return_date ? fmtDate(l.return_date) : "-"}</td>
-                <td>${overdueFlag ? '<span class="badge badge-danger">Terlambat</span>' : A.loanBadge(l)}</td>
+                <td data-label="Kode" class="text-xs">${esc(l.loan_code)}</td>
+                <td data-label="Buku"><div class="td-title">${esc(b ? b.judul : "-")}</div><div class="sub">${esc(b ? b.penulis : "")}</div></td>
+                <td data-label="Tanggal Pinjam">${fmtDate(l.loan_date)}</td>
+                <td data-label="Jatuh Tempo">${fmtDate(l.due_date)}</td>
+                <td data-label="Dikembalikan">${l.return_date ? fmtDate(l.return_date) : "-"}</td>
+                <td data-label="Status">${overdueFlag ? '<span class="badge badge-danger">Terlambat</span>' : A.loanBadge(l)}</td>
               </tr>`;
             }).join("")}
           </tbody>

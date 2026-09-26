@@ -5,8 +5,10 @@
    ============================================================ */
 
 /* ---------- HERO (tanpa karakter manusia) ---------- */
+/* padding-right WAJIB menyisakan ruang untuk .hero-art (250px @ right:18px),
+   kalau tidak teks hero akan tertimpa ilustrasi. */
 .hero {
-  padding: 30px 32px 34px;
+  padding: 30px 290px 34px 32px;
   min-height: 186px;
 }
 .hero > div:first-child { position: relative; z-index: 2; }
@@ -19,6 +21,21 @@
 }
 .hero .btn-usulan:hover { background: linear-gradient(120deg, #E39A00 0%, #F7CD3C 100%); transform: translateY(-1px); box-shadow: 0 16px 30px -12px rgba(217, 139, 0, .9), inset 0 0 0 1px rgba(255, 255, 255, .45); }
 .hero .btn-usulan svg { width: 16px; height: 16px; }
+
+/* "Ajukan Peminjaman" — tombol kaca putih (dipakai js/student.js: .btn-ghost-flash) */
+.hero .btn-ghost-flash {
+  background: rgba(255, 255, 255, .16);
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, .46);
+  font-weight: 700;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 10px 22px -12px rgba(2, 24, 58, .7), inset 0 1px 0 rgba(255, 255, 255, .22);
+}
+.hero .btn-ghost-flash:hover { background: rgba(255, 255, 255, .3); }
+.hero .btn-ghost-flash svg { width: 16px; height: 16px; }
+.hero .btn-ghost-flash[disabled] { opacity: .5; cursor: not-allowed; }
+
 .hero-art {
   position: absolute;
   right: 18px;
@@ -445,24 +462,62 @@ body.admin-mode .hero { padding-right: 30px; }
 .bb-error { color: var(--danger); font-size: 12px; }
 
 /* ---------- PINJAM CEPAT (hero fast-action) ---------- */
-.qp-head { font-size: 12px; color: var(--text-muted); margin-bottom: 10px; }
-.qp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; max-height: 380px; overflow-y: auto; padding-right: 4px; }
-.qp-card { border: 1px solid var(--border); border-radius: 12px; background: var(--surface); padding: 10px; cursor: pointer; text-align: left; display: flex; flex-direction: column; gap: 4px; transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease; }
-.qp-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); border-color: var(--border); }
-.qp-cover { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 8px; background: var(--bg); }
-.qp-cover-empty { display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 11px; font-weight: 800; }
-.qp-meta { min-width: 0; }
-.qp-meta b { display: block; font-size: 13px; line-height: 1.35; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.qp-meta span { display: block; font-size: 11.5px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.qp-avail { font-weight: 700; color: var(--success); }
-
-@media (max-width: 640px) {
-  .qp-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); max-height: 340px; }
+/* Prefix WAJIB "qb-" — sama dengan markup di js/student.js (quickBorrow). */
+.qb-hint { font-size: 12.5px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.55; }
+.qb-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  max-height: 380px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: 2px 4px 2px 2px;
 }
+.qb-card {
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  padding: 9px;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+}
+.qb-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+.qb-card.sel { border-color: var(--primary); background: var(--primary-soft); box-shadow: 0 0 0 3px rgba(11, 92, 173, .12); }
+.qb-cover { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 9px; background: var(--bg); display: block; }
+.qb-cover-empty { display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 11px; font-weight: 800; }
+.qb-info { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.qb-info b { display: block; font-size: 12.5px; line-height: 1.35; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.qb-info span { display: block; font-size: 11px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.qb-avail { font-weight: 700; color: var(--success); }
+.qb-sum { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; display: flex; flex-direction: column; gap: 7px; }
+
+/* ---------- Baris tombol modal (Ajukan Pinjam / Pinjam Cepat) ---------- */
+.bb-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-top: 4px;
+  border-top: 1px solid var(--border);
+  margin-top: 2px;
+}
+.bb-actions .btn { flex: 1 1 auto; justify-content: center; min-height: 44px; }
 
 /* ---------- utilitas dashboard ---------- */
 .guru-main { min-width: 0; }
 .rec-list { display: grid; gap: 10px; }
+.rec-row { min-width: 0; }
+.rec-row .info { min-width: 0; }
+.rec-row .info b,
+.rec-row .info span { overflow-wrap: anywhere; }
+.badge { margin: 0 4px 4px 0; }
+.cell-actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
 .gap-14 { gap: 14px; }
 .gap-10 { gap: 10px; }
 .mb-8 { margin-bottom: 8px; }
@@ -486,12 +541,47 @@ body.admin-mode .hero { padding-right: 30px; }
   .chart-toggle button { padding: 6px 10px; font-size: 12px; }
   .chart-legend span { padding: 3px 9px; font-size: 11.5px; }
   .hero { padding: 24px 20px 26px; min-height: 0; }
+  /* Di ponsel hero jadi satu kolom: judul -> subjudul -> tombol.
+     (pada hero siswa .hero-cta adalah saudara .hero-art, tanpa ini
+     tombol tetap berdesakan menyamping di layar sempit) */
+  .hero { flex-direction: column; align-items: stretch; gap: 0; }
+  .hero h2 { font-size: 19px; line-height: 1.3; }
+  .hero p { font-size: 13.5px; }
   .hero-cta { margin-top: 12px; }
   .hero .btn-usulan { padding: 12px 16px; font-size: 14px; }
+  /* ilustrasi disembunyikan di ponsel: teks jadi fokus & tidak tertimpa */
+  .hero-art { display: none; }
+  .hero-search { padding: 7px 7px 7px 16px; }
+
+  /* CTA hero: tombol membagi rata, tinggi aman untuk ibu jari */
+  .hero-cta { gap: 9px; }
+  .hero-cta .btn { flex: 1 1 150px; justify-content: center; min-height: 46px; }
+  .hero-kicker { font-size: 11px; }
+
+  /* Modal peminjaman: tombol full-width, grid buku jadi 2 kolom */
+  .bb-book { gap: 12px; }
+  .bb-book .bb-cover { flex: 0 0 78px !important; width: 78px; height: 112px; }
+  .bb-meta b { font-size: 15px; }
+  .bb-dates { grid-template-columns: 1fr; gap: 12px; }
+  .bb-actions { flex-direction: column-reverse; gap: 8px; }
+  .bb-actions .btn { width: 100%; min-height: 48px; font-size: 14.5px; }
+  .qb-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); max-height: 46vh; }
+  .qb-card { padding: 8px; }
+  .qb-info b { font-size: 12px; }
+
+  /* Rekomendasi guru di beranda: tombol aksi turun ke baris sendiri */
+  .rec-row { flex-wrap: wrap; row-gap: 10px; }
+  .rec-row .info { flex: 1 1 100%; }
+  .rec-row .btn,
+  .rec-row .btn-rec { flex: 1 1 100%; justify-content: center; min-height: 44px; }
 }
 
 @media (max-width: 400px) {
   .chart-yaxis { display: none; }
   .chart-line .line-svg { height: 158px; }
-  .hero-cta .btn { flex: 1 1 auto; }
+  .hero-cta { flex-direction: column; align-items: stretch; gap: 9px; }
+  .hero-cta .btn { width: 100%; justify-content: center; min-height: 46px; }
+  .bb-book { flex-direction: column; }
+  .bb-book .bb-cover { flex: 0 0 auto !important; width: 100%; height: 168px; }
+  .bb-book .bb-cover img { width: 100%; height: 100%; object-fit: cover; }
 }

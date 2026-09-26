@@ -322,11 +322,11 @@
     const loans = dbx.loans.slice().sort((a,b)=>new Date(b.loan_date)-new Date(a.loan_date)).slice(0,30);
     render(`
       <div class="page-head"><h1>Aktivitas Peminjaman</h1><p>Ringkasan transaksi peminjaman perpustakaan.</p></div>
-      <div class="table-wrap"><table class="table"><thead><tr><th>Kode</th><th>Siswa</th><th>Buku</th><th>Pinjam</th><th>Jatuh Tempo</th><th>Status</th></tr></thead>
+      <div class="table-wrap"><table class="table table-cards"><thead><tr><th>Kode</th><th>Siswa</th><th>Buku</th><th>Pinjam</th><th>Jatuh Tempo</th><th>Status</th></tr></thead>
       <tbody>${loans.map(l => {
         const st = dbx.students.find(s=>s.id===l.student_id), b=bookById(l.book_id);
         const status = l.status==="overdue" ? ["Terlambat","danger"] : l.status==="returned" ? ["Dikembalikan","neutral"] : ["Dipinjam","success"];
-        return `<tr><td>${esc(l.loan_code)}</td><td>${esc(st?st.nama:"-")}</td><td><b>${esc(b?b.judul:"-")}</b></td><td>${fmtDate(l.loan_date)}</td><td>${fmtDate(l.due_date)}</td><td><span class="badge badge-${status[1]}">${status[0]}</span></td></tr>`;
+        return `<tr><td data-label="Kode">${esc(l.loan_code)}</td><td data-label="Siswa">${esc(st?st.nama:"-")}</td><td data-label="Buku"><b>${esc(b?b.judul:"-")}</b></td><td data-label="Pinjam">${fmtDate(l.loan_date)}</td><td data-label="Jatuh Tempo">${fmtDate(l.due_date)}</td><td data-label="Status"><span class="badge badge-${status[1]}">${status[0]}</span></td></tr>`;
       }).join("")}</tbody></table></div>`);
   }
 

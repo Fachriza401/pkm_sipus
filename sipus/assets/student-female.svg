@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" role="img" aria-label="Ilustrasi siswa"/>
+  <defs>
+    <linearGradient id="sfBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#EAF3FC"/>
+      <stop offset="1" stop-color="#DCEBFA"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="160" rx="20" fill="url(#sfBg)"/>
+  <circle cx="152" cy="34" r="22" fill="#F4C62E" opacity=".28"/>
+  <circle cx="38" cy="128" r="26" fill="#0B5CAD" opacity=".10"/>
+
+  <!-- buku yang dipegang -->
+  <rect x="66" y="74" width="68" height="46" rx="6" fill="#0B5CAD" opacity=".85"/>
+  <path d="M100 74v46" stroke="#EAF3FC" stroke-width="3"/>
+  <path d="M74 86h18M74 96h18M108 86h18M108 96h18" stroke="#EAF3FC" stroke-width="3" stroke-linecap="round" opacity=".65"/>
+
+  <!-- kepala -->
+  <circle cx="100" cy="50" r="19" fill="#F6D2B4"/>
+  <path d="M81 48a19 19 0 0 1 38 0c0-14-8-21-19-21s-19 7-19 21z" fill="#2A3A52"/>
+  <path d="M81 46c-2 14 4 26 10 30-8-1-14-8-15-18 0-6 2-9 5-12z" fill="#2A3A52"/>
+
+  <!-- shoulders -->
+  <path d="M62 122c0-19 17-30 38-30s38 11 38 30z" fill="#1287D6" opacity=".9"/>
+  <path d="M92 92h16l-8 16z" fill="#EAF3FC" opacity=".8"/>
+
+  <!-- tangan -->
+  <path d="M70 108c-4 4-6 8-5 12 1 4 5 5 8 2l8-9z" fill="#F6D2B4"/>
+  <path d="M130 108c4 4 6 8 5 12-1 4-5 5-8 2l-8-9z" fill="#F6D2B4"/>
+</svg>
