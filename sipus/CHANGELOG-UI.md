@@ -1,3 +1,10 @@
+# SIPUS UI Refresh — v1.6.1
+
+- **Kover buku pakai aset lokal, bukan URL Google Books**:
+  - `BOOK_COVERS` (`js/data.js`) diarahkan ke `assets/books/1.jpg` … `10.jpg`. Kover kini ikut ter-deploy, tampil di semua perangkat, dan tidak bergantung pada domain pihak ketiga yang bisa diblokir.
+  - Migrasi otomatis di `getDB()`: cover lama `https://books.google.com/…` ikut terdeteksi sebagai data usang sehingga browser yang sudah pernah menyimpan DB tidak lagi menampilkan kover kosong.
+  - Aset `bk-01.svg` … `bk-14.svg` dihapus (tidak lagi dirujuk sebagai path file; `bk-01` dst. hanya ID buku). `book-fallback.svg` tetap dipakai sebagai kover cadangan.
+
 # SIPUS UI Refresh — v1.6.0
 
 - **Hardening mobile menyeluruh** (semua portal: siswa, guru, admin):
@@ -12,6 +19,7 @@
   - Form Guru tidak lagi ikut tampil di bawah form Siswa. `body.auth-register .a-reg-form { display: grid }` di `@media (max-width: 768px)` menimpa aturan `[hidden]` dari UA stylesheet, sehingga `register.js` yang menyembunyikan form lewat `hidden` jadi tidak berlaku. Ditambahkan `.a-reg-form[hidden] { display: none !important; }`.
   - Logo ponsel dihapus dari header brand (login & register) karena tidak terbaca di atas kartu putih. `.auth-mobile-brand` kini hanya menampilkan teks: kicker **Portal Akun** + nama **SIPUS** secara terpusat. Aturan yatim (`.auth-mobile-brand-logo`, `img`, `-text`, `-sub`, `-school`, dan panel kaca 1000px) ikut dibersihkan.
   - `login.js` tetap aman: `brandSchoolMobile` di-check null sebelum diisi.
+- **Card login di web dirampingkan**: form login hanya 2 field + tombol, sehingga lebar penuh 468px terlihat melintang di monitor besar. `body.auth-login .auth-card` kini `max-width: 424px` dengan padding `40px 38px 30px`. Halaman registrasi tidak ikut karena formularnya jauh lebih panjang.
 
 # SIPUS UI Refresh — v1.5.0
 

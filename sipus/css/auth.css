@@ -267,6 +267,13 @@ body.auth-page select { font-family: inherit; font-size: 14.5px; }
   background: linear-gradient(90deg, var(--a-primary-deep), var(--a-primary), var(--a-accent));
 }
 
+/* Card login deliberately lebih ramping: formulirnya hanya 2 field + tombol,
+   sehingga lebar penuh 468px terlihat melintang di monitor besar. */
+body.auth-login .auth-card {
+  max-width: 424px;
+  padding: 40px 38px 30px;
+}
+
 /* Brand ringkas khusus ponsel: tanpa logo, cukup konteks + nama aplikasi */
 .auth-mobile-brand {
   display: none;

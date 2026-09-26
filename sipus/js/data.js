@@ -29,16 +29,16 @@ function migrateJurusan(j) {
   return j;
 }
 const BOOK_COVERS = {
-  "bk-01": "https://books.google.com/books/content?id=9789793062792&printsec=frontcover&img=1&zoom=1&edge=curl",
-  "bk-02": "https://books.google.com/books/content?id=9789799731234&printsec=frontcover&img=1&zoom=1&edge=curl",
-  "bk-03": "https://books.google.com/books/content?id=9786020633176&printsec=frontcover&img=1&zoom=1&edge=curl",
-  "bk-04": "https://books.google.com/books/content?id=9786024246945&printsec=frontcover&img=1&zoom=1&edge=curl",
-  "bk-05": "https://books.google.com/books/content?id=9789792248616&printsec=frontcover&img=1&zoom=1&edge=curl",
-  "bk-06": "https://books.google.com/books/content?id=9786020324784&printsec=frontcover&img=1&zoom=1&edge=curl",
-  "bk-07": "https://books.google.com/books/content?id=9786024242756&printsec=frontcover&img=1&zoom=1&edge=curl",
-  "bk-08": "https://books.google.com/books/content?id=9780062316103&printsec=frontcover&img=1&zoom=1&edge=curl",
-  "bk-09": "https://books.google.com/books/content?id=9780152465032&printsec=frontcover&img=1&zoom=1&edge=curl",
-  "bk-10": "https://books.google.com/books/content?id=9786020667188&printsec=frontcover&img=1&zoom=1&edge=curl"
+  "bk-01": "assets/books/1.jpg",
+  "bk-02": "assets/books/2.jpg",
+  "bk-03": "assets/books/3.jpg",
+  "bk-04": "assets/books/4.jpg",
+  "bk-05": "assets/books/5.jpg",
+  "bk-06": "assets/books/6.jpg",
+  "bk-07": "assets/books/7.jpg",
+  "bk-08": "assets/books/8.jpg",
+  "bk-09": "assets/books/9.jpg",
+  "bk-10": "assets/books/10.jpg"
 };
 
 function uid(prefix) {
@@ -251,7 +251,11 @@ function getDB() {
         }
       });
       db.books.forEach(book => {
-        if ((!book.cover || book.cover.indexOf("assets/books/") === 0 || book.cover.indexOf("https://covers.openlibrary.org/") === 0) && BOOK_COVERS[book.id]) {
+        const staleCover = !book.cover
+          || book.cover.indexOf("assets/books/") === 0
+          || book.cover.indexOf("https://covers.openlibrary.org/") === 0
+          || book.cover.indexOf("https://books.google.com/") === 0;
+        if (staleCover && BOOK_COVERS[book.id]) {
           book.cover = BOOK_COVERS[book.id];
           changed = true;
         }
