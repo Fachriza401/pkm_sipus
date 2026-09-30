@@ -1286,6 +1286,9 @@
     if (b.available <= 0) { A.toast("error", "Stok habis", "Buku sedang dipinjam semua."); return; }
     A.confirmDialog("Setujui Peminjaman", `Setujui peminjaman <b>"${esc(b.judul)}"</b> oleh <b>${esc(studentById(l.student_id).nama)}</b>? Stok tersedia akan berkurang.`, () => {
       const d2 = db(); const li = d2.loans.findIndex(x => x.id === loanId);
+      const l2 = d2.loans[li];
+      const maxDue = new Date(new Date(l2.loan_date).getTime() + (d2.settings.loan_duration || 7) * 86400000);
+      if (l2.due_date && new Date(l2.due_date) > maxDue) l2.due_date = maxDue.toISOString();
       d2.loans[li].status = "active";
       d2.loans[li].processed_by = session().user_id;
       const bi = d2.books.findIndex(x => x.id === b.id);

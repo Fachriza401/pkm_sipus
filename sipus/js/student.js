@@ -998,7 +998,7 @@
     const today = new Date();
     const start = new Date();
     const due = new Date(); due.setDate(due.getDate() + duration);
-    const minEnd = new Date(start); minEnd.setDate(minEnd.getDate() + 12);
+    const minEnd = new Date(start); minEnd.setDate(minEnd.getDate() + 1);
 
     const cover = b.cover
       ? `<img class="bb-cover" src="${esc(b.cover)}" alt="">`
@@ -1026,7 +1026,7 @@
           </div>
           <div class="bb-field">
             <label>Tanggal Kembali</label>
-            <input class="input" type="date" id="bbEnd" value="${toIn(due)}" min="${toIn(minEnd)}">
+            <input class="input" type="date" id="bbEnd" value="${toIn(due)}" min="${toIn(minEnd)}" max="${toIn(due)}">
           </div>
         </div>
         <div class="bb-sum"></div>
@@ -1046,17 +1046,22 @@
           const en = new Date(enIn.value);
           const ok = en > st;
           const days = ok ? Math.round((en - st) / 86400000) : 0;
+          const over = ok && days > duration;
           sumEl.innerHTML = `
             <div class="bb-row"><b>Durasi Pinjam</b><span>${ok ? `${days} hari` : "—"}</span></div>
             <div class="bb-row"><b>Jatuh Tempo</b><span>${ok ? fmtDate(en.toISOString()) : "Pilih tanggal kembali"}</span></div>
+            <div class="bb-row bb-row-muted"><b>Maksimal</b><span>${duration} hari</span></div>
+            ${over ? `<div class="bb-error">Maksimal ${duration} hari dari tanggal pinjam.</div>` : ""}
             <div class="bb-row bb-row-muted"><b>Kuota Aktif</b><span>${active.length}/${limit} buku</span></div>`;
-          return ok;
+          return ok && !over;
         };
         stIn.onchange = () => {
           const st = new Date(stIn.value);
           const mn = new Date(st); mn.setDate(st.getDate() + 1);
+          const mx = new Date(st); mx.setDate(st.getDate() + duration);
           enIn.min = toIn(mn);
-          if (!enIn.value || new Date(enIn.value) <= st) enIn.value = toIn(mn);
+          enIn.max = toIn(mx);
+          if (!enIn.value || new Date(enIn.value) <= st || new Date(enIn.value) > mx) enIn.value = toIn(mx);
           build();
         };
         enIn.onchange = build;
@@ -1064,7 +1069,7 @@
         if (go) {
           build();
           go.onclick = () => {
-            if (!build()) { A.toast("error", "Tanggal tidak valid", "Tanggal kembali harus setelah tanggal pinjam."); return; }
+            if (!build()) { A.toast("error", "Durasi tidak valid", `Tanggal kembali maksimal ${duration} hari dari tanggal pinjam.`); return; }
             const st = new Date(stIn.value), en = new Date(enIn.value);
             dbx.loans.push({
               id: uid("loan-"), loan_code: "PJM-" + String(1000 + dbx.loans.length + 1),
@@ -1092,6 +1097,8 @@
     if (!std) { A.toast("warning", "Login dulu", "Kamu harus login untuk meminjam buku."); return; }
     const dbx = db();
     const limit = dbx.settings.loan_limit || 3;
+    const duration = dbx.settings.loan_duration || 7;
+    const latest = () => { const d = new Date(); d.setDate(d.getDate() + duration); return d; };
     const active = activeLoans(std.id);
     const already = new Set(active.map(l => l.book_id));
     const available = dbx.books
@@ -1122,7 +1129,7 @@
           </div>
           <div class="bb-field">
             <label>Tanggal Kembali</label>
-            <input class="input" type="date" id="qbEnd" value="${toIn(minEnd())}" min="${toIn(minEnd())}">
+            <input class="input" type="date" id="qbEnd" value="${toIn(latest())}" min="${toIn(minEnd())}" max="${toIn(latest())}">
           </div>
         </div>
         <div class="qb-sum"></div>
@@ -1144,12 +1151,16 @@
           const b = selId ? bookById(selId) : null;
           const st = new Date(stIn.value), en = new Date(enIn.value);
           const ok = b && en > st;
+          const days = ok ? Math.round((en - st) / 86400000) : 0;
+          const over = ok && days > duration;
           sumEl.innerHTML = `
             ${b ? `<div class="bb-row"><b>Buku</b><span>${esc(b.judul)}</span></div>` : `<div class="bb-row"><b>Buku</b><span>—</span></div>`}
-            <div class="bb-row"><b>Durasi Pinjam</b><span>${ok ? `${Math.round((en - st) / 86400000)} hari` : "—"}</span></div>
+            <div class="bb-row"><b>Durasi Pinjam</b><span>${days ? `${days} hari` : "—"}</span></div>
+            <div class="bb-row bb-row-muted"><b>Maksimal</b><span>${duration} hari</span></div>
+            ${over ? `<div class="bb-error">Maksimal ${duration} hari dari tanggal pinjam.</div>` : ""}
             <div class="bb-row"><b>Kuota Aktif</b><span>${active.length}/${limit} buku</span></div>`;
-          okBtn.disabled = !ok;
-          return ok;
+          okBtn.disabled = !ok || over;
+          return ok && !over;
         };
         ov.querySelectorAll(".qb-card").forEach(card => {
           card.onclick = () => {
@@ -1162,15 +1173,18 @@
         });
         stIn.onchange = () => {
           const st = new Date(stIn.value);
-          const mn = new Date(st); mn.setDate(st.getDate() + 12);
+          const mn = new Date(st); mn.setDate(st.getDate() + 1);
+          const mx = new Date(st); mx.setDate(st.getDate() + duration);
           enIn.min = toIn(mn);
-          if (!enIn.value || new Date(enIn.value) <= st) enIn.value = toIn(mn);
+          enIn.max = toIn(mx);
+          if (!enIn.value || new Date(enIn.value) <= st || new Date(enIn.value) > mx) enIn.value = toIn(mx);
           build();
         };
         enIn.onchange = build;
         cancelBtn.onclick = ov.close;
         okBtn.onclick = () => {
-          if (!build()) { A.toast("warning", "Pilih buku dulu", "Pilih salah satu buku yang tersedia."); return; }
+          if (!selId) { A.toast("warning", "Pilih buku dulu", "Pilih salah satu buku yang tersedia."); return; }
+          if (!build()) { A.toast("warning", "Durasi tidak valid", `Tanggal kembali maksimal ${duration} hari dari tanggal pinjam.`); return; }
           const b = bookById(selId);
           const st = new Date(stIn.value), en = new Date(enIn.value);
           dbx.loans.push({
@@ -1197,7 +1211,7 @@
     return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
   };
   const start = () => new Date();
-  const minEnd = () => { const d = new Date(); d.setDate(d.getDate() + 12); return d; };
+  const minEnd = () => { const d = new Date(); d.setDate(d.getDate() + 1); return d; };
 
   /* ================= BOOT ================= */
   function boot() {

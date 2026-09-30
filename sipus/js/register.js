@@ -187,17 +187,17 @@
       if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setErr("fEmail" + fx, "fbEmail" + fx, "Format email tidak valid."); ok = false; }
 
       const db = S.getDB();
+      const nis = isSiswa ? $("nisS").value.trim() : "";
+      const kelas = isSiswa ? $("kelasS").value : "";
+      const nip = isSiswa ? "" : $("nipG").value.trim();
+      const mapel = isSiswa ? "" : $("mapelG").value;
 
       if (isSiswa) {
-        const nis = $("nisS").value.trim();
-        const kelas = $("kelasS").value;
         if (!/^\d{4,15}$/.test(nis)) { setErr("fNisS", "fbNisS", "NIS harus berupa angka 4–15 digit."); ok = false; }
         if (!kelas) { setErr("fKelasS", "fbKelasS", "Pilih kelas terlebih dahulu."); ok = false; }
         if (ok && db.students.some(s => String(s.nis).trim() === nis)) { setErr("fNisS", "fbNisS", "NIS tersebut sudah terdaftar."); ok = false; }
         if (ok && db.users.some(u => u.role === "siswa" && u.username === nis)) { setErr("fNisS", "fbNisS", "NIS tersebut sudah terdaftar."); ok = false; }
       } else {
-        const nip = $("nipG").value.trim();
-        const mapel = $("mapelG").value;
         if (!/^\d{6,20}$/.test(nip)) { setErr("fNipG", "fbNipG", "NIP harus berupa angka 6–20 digit."); ok = false; }
         if (!mapel) { setErr("fMapelG", "fbMapelG", "Pilih mata pelajaran terlebih dahulu."); ok = false; }
         if (ok && db.teacher_profiles.some(t => t.nip === nip)) { setErr("fNipG", "fbNipG", "NIP tersebut sudah terdaftar."); ok = false; }

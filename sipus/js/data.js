@@ -237,6 +237,8 @@ function getDB() {
       db.teacher_profiles = db.teacher_profiles || [];
       db.book_requests = db.book_requests || [];
       db.recommendations = db.recommendations || [];
+      db.notifications = db.notifications || [];
+      db.audit_logs = db.audit_logs || [];
       if (db.settings && db.settings.school_name === "SMAN 1 Nusantara") {
         db.settings.school_name = "SMA Swasta Pencawan";
         db.settings.tagline = "Baca Hari Ini, Raih Masa Depan";
